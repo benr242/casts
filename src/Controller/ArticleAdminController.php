@@ -52,7 +52,11 @@ EOF
 
         $em->persist($article);
         $em->flush();
-        
-        return new Response('space rocks... include comets, asteroids & meteoroids');
+
+        return new Response(sprintf(
+            'Hiya! New Article id: #%d slug: %s',
+            $article->getId(),
+            $article->getSlug()
+        ));
     }
 }
