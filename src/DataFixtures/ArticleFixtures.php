@@ -2,19 +2,25 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixture
 {
+    /*
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $comment = new Comment();
+        $comment->setArticle(null);
+        $comment->setContent('jst a test');
+        $comment->setAuthorName("benr242");
+
+        $manager->persist($comment);
 
         $manager->flush();
     }
-
+    */
     public function loadData(ObjectManager $manager)
     {
         $this->createMany(Article::class, 10, function(Article $article, $count) {
@@ -42,8 +48,8 @@ EOF
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
             }
             $article->setAuthor('Mike Ferengi')
-                ->setHeartCount(rand(5, 100))
-                ->setImageFilename('asteroid.jpeg')
+                //->setHeartCount(rand(5, 100))
+                //->setImageFilename('asteroid.jpeg')
             ;
         });
         $manager->flush();

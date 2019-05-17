@@ -41,11 +41,11 @@ class Article
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
      */
-    private $comments;
+    //private $comments;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        //$this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
