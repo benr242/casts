@@ -25,7 +25,7 @@ class ArticleFixtures extends BaseFixture
     */
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(Article::class, 18, function(Article $article, $count) use ($manager) {
+        $this->createMany(Article::class, 8, function(Article $article, $count) use ($manager) {
             $article->setTitle('Why Asteroids Taste Like Bacon')
                 ->setSlug('why-asteroids-taste-like-bacon-'.$count)
                 ->setContent(<<<EOF
@@ -57,8 +57,18 @@ EOF
             $comment1->setAuthorName('ben');
             $comment1->setArticle($article);
             $comment1->setContent('blah blah blah');
-            $manager->persist($comment1);
+
+
+            $comment2 = new Comment();
+            $comment2->setAuthorName('kris');
+            $comment2->setArticle($article);
+            $comment2->setContent('klah klah klah');
+
             $manager->persist($article);
+
+            $manager->persist($comment1);
+            $manager->persist($comment2);
+
         });
         $manager->flush();
     }
