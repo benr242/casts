@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Article;
 use App\Entity\Comment;
+
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,7 +25,7 @@ class ArticleFixtures extends BaseFixture
     */
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(Article::class, 10, function(Article $article, $count) {
+        $this->createMany(Article::class, 10, function(Article $article, $count) use ($manager) {
             $article->setTitle('Why Asteroids Taste Like Bacon')
                 ->setSlug('why-asteroids-taste-like-bacon-'.$count)
                 ->setContent(<<<EOF
@@ -45,12 +47,13 @@ EOF
                 );
             // publish most articles
             if (rand(1, 10) > 2) {
-                $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
+                //$article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100));
             }
-            $article->setAuthor('Mike Ferengi')
+            $article->setAuthor('Mike Ferengi');
                 //->setHeartCount(rand(5, 100))
-                //->setImageFilename('asteroid.jpeg')
-            ;
+                //->setImageFilename('asteroid.jpeg');
+
+            $manager->persist($article);
         });
         $manager->flush();
     }
