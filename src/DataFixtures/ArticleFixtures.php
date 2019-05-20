@@ -25,7 +25,7 @@ class ArticleFixtures extends BaseFixture
     */
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(Article::class, 10, function(Article $article, $count) use ($manager) {
+        $this->createMany(Article::class, 18, function(Article $article, $count) use ($manager) {
             $article->setTitle('Why Asteroids Taste Like Bacon')
                 ->setSlug('why-asteroids-taste-like-bacon-'.$count)
                 ->setContent(<<<EOF
@@ -53,6 +53,11 @@ EOF
                 //->setHeartCount(rand(5, 100))
                 //->setImageFilename('asteroid.jpeg');
 
+            $comment1 = new Comment();
+            $comment1->setAuthorName('ben');
+            $comment1->setArticle($article);
+            $comment1->setContent('blah blah blah');
+            $manager->persist($comment1);
             $manager->persist($article);
         });
         $manager->flush();
